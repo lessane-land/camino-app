@@ -28,8 +28,8 @@ document.write('<link rel="manifest" href="'+URL.createObjectURL(b)+'">');
   --gold:#d4900a;--goldl:#fffbea;--goldm:#f0c040;
   --teal:#0898b0;--teall:#e8f9fc;--tealm:#50c8d8;
 }
-html,body{height:100%;overflow:hidden;background:#0f0c18;font-family:'Raleway',-apple-system,sans-serif;background:var(--bg);color:var(--text-inv);-webkit-font-smoothing:antialiased;letter-spacing:.01em}
-#app{display:flex;flex-direction:column;height:100vh;height:100dvh;min-height:0;overflow:hidden}
+html,body{height:100%;width:100%;overflow:hidden;background:#0f0c18;font-family:'Raleway',-apple-system,sans-serif;background:var(--bg);color:var(--text-inv);-webkit-font-smoothing:antialiased;letter-spacing:.01em}
+#app{display:flex;flex-direction:column;width:100%;height:100%;position:fixed;inset:0;background:#0f0c18}
 
 /* ── HEADER ── */
 .hdr{
@@ -61,15 +61,15 @@ html,body{height:100%;overflow:hidden;background:#0f0c18;font-family:'Raleway',-
 .hdr-badge{background:linear-gradient(135deg,rgba(240,112,32,0.9),rgba(192,64,32,0.95));color:#fff;font-size:13px;font-weight:700;padding:8px 16px;border-radius:20px;display:flex;align-items:center;gap:5px;box-shadow:0 4px 20px rgba(240,112,32,0.5),0 0 0 1px rgba(255,255,255,0.15) inset;letter-spacing:.04em;backdrop-filter:blur(10px);white-space:nowrap;flex-shrink:0}
 
 /* ── SCROLL ── */
-#sa{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(80px + env(safe-area-inset-bottom,34px));width:100%;background:var(--bg)}
+#sa{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:#0f0c18}
 
 /* ── PAGES ── */
-.page{display:none}
+.page{display:none;padding-bottom:16px}
 .page.active{display:block;animation:fu .25s ease}
 @keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── TABS ── */
-.tabs{position:fixed;bottom:0;left:0;right:0;padding-top:8px;padding-bottom:env(safe-area-inset-bottom,34px);background:#0f0c18;border-top:.5px solid rgba(255,255,255,0.08);display:flex;align-items:flex-start;z-index:100}
+.tabs{flex-shrink:0;display:flex;align-items:center;background:#0f0c18;border-top:.5px solid rgba(255,255,255,0.08);padding-top:8px;padding-bottom:env(safe-area-inset-bottom,34px)}
 .tb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:none;background:none;cursor:pointer;padding:8px 4px;transition:all .15s}
 .tb:active{opacity:.5;transform:scale(.92)}
 .tb-iw{width:28px;height:28px;display:flex;align-items:center;justify-content:center;transition:transform .2s;border-radius:10px}
@@ -964,40 +964,8 @@ buildCL();
 updatePicker(1);
 
 // iOS viewport height fix
-function setVH(){
-  const vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', vh + 'px');
-  document.getElementById('app').style.height = window.innerHeight + 'px';
-}
-setVH();
-setTimeout(setVH, 50);
-setTimeout(setVH, 200);
-window.addEventListener('resize', setVH);
-window.addEventListener('orientationchange', () => setTimeout(setVH, 200));
 
-
-// Load persisted progress on startup
-updateProgress();
-
-// Detect standalone mode
-const isStandalone = window.navigator.standalone === true;
-if (isStandalone) {
-  const ib = document.getElementById('ib');
-  if (ib) ib.style.display = 'none';
-  // In standalone PWA, measure exact dimensions and set them
-  
-} else {
-  const ib = document.getElementById('ib');
-  if (ib) ib.style.display = 'flex';
-}
-
-// Service Worker for offline
-if('serviceWorker' in navigator){
-  const sw=`const C='cv1';self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.add('/'))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
-  const url=URL.createObjectURL(new Blob([sw],{type:'application/javascript'}));
-  navigator.serviceWorker.register(url).catch(()=>{});
 }
 </script>
-<div style="position:fixed;bottom:0;left:0;right:0;height:50px;background:#0f0c18;z-index:99"></div>
 </body>
 </html>

@@ -966,6 +966,19 @@ buildTransport();
 buildCL();
 updatePicker(1);
 
+// Fix standalone PWA gap
+if (window.navigator.standalone) {
+  function fixStandaloneGap() {
+    var tabs = document.querySelector('.tabs');
+    var gap = window.innerHeight - tabs.getBoundingClientRect().bottom;
+    if (gap > 0) {
+      tabs.style.paddingBottom = gap + 'px';
+    }
+  }
+  setTimeout(fixStandaloneGap, 100);
+  setTimeout(fixStandaloneGap, 500);
+}
+
 
 
 
@@ -978,7 +991,7 @@ setTimeout(function(){
   var tabs = document.querySelector('.tabs');
   var tr = tabs.getBoundingClientRect();
   var d = document.getElementById('dbg');
-  d.innerHTML = 'win:'+window.innerHeight+' app:'+app.offsetHeight+' tabs.bottom:'+Math.round(tr.bottom)+' gap:'+Math.round(window.innerHeight-tr.bottom);
+  d.innerHTML = 'win:'+window.innerHeight+' app:'+app.offsetHeight+' tabs.bottom:'+Math.round(tr.bottom)+' gap:'+Math.round(window.innerHeight-tr.bottom)+' standalone:'+window.navigator.standalone;
 }, 500);
 </script>
 </body>

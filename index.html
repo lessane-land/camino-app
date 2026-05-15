@@ -6,13 +6,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Camino">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0f0c18">
 <title>Camino Catalán</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <script>
-const md={name:"Camino Catalán",short_name:"Camino",display:"standalone",background_color:"#ffff00",theme_color:"#ffff00",icons:[{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%231a1108'/%3E%3Cpath d='M96 30C62 30 35 57 35 96c0 24 12 44 30 57 5 3 11-2 9-8-6-10-8-22-4-33 6-16 20-25 26-25s20 9 26 25c4 11 2 23-4 33-2 6 4 11 9 8 18-13 30-33 30-57 0-39-27-66-61-66z' fill='%23c8823a'/%3E%3C/svg%3E",sizes:"192x192",type:"image/svg+xml"}]};
+const md={name:"Camino Catalán",short_name:"Camino",display:"standalone",background_color:"#0f0c18",theme_color:"#0f0c18",icons:[{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%231a1108'/%3E%3Cpath d='M96 30C62 30 35 57 35 96c0 24 12 44 30 57 5 3 11-2 9-8-6-10-8-22-4-33 6-16 20-25 26-25s20 9 26 25c4 11 2 23-4 33-2 6 4 11 9 8 18-13 30-33 30-57 0-39-27-66-61-66z' fill='%23c8823a'/%3E%3C/svg%3E",sizes:"192x192",type:"image/svg+xml"}]};
 const b=new Blob([JSON.stringify(md)],{type:'application/json'});
 document.write('<link rel="manifest" href="'+URL.createObjectURL(b)+'">');
 </script>
@@ -74,12 +74,7 @@ body{margin:0;padding:0;background:#0f0c18;overflow:hidden;position:fixed;top:0;
 @keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── TABS ── */
-/* Tab bar with iOS 26 bug workaround:
-   bottom:-50px extends bar past viewport edge to cover iOS 26 phantom gap.
-   The 50px is added back as padding-bottom + safe-area so icons sit
-   correctly inside the visible portion. align-items:center keeps icons
-   visually balanced. */
-.tabs{position:fixed;left:0;right:0;bottom:-50px;z-index:20;display:flex;align-items:center;width:100%;height:60px;background:#0f0c18;border-top:.5px solid rgba(255,255,255,0.08);padding-bottom:calc(50px + max(env(safe-area-inset-bottom,0px),0px));box-sizing:content-box}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;align-items:center;width:100%;background:#0f0c18;border-top:.5px solid rgba(255,255,255,0.08);padding-top:8px;padding-bottom:max(env(safe-area-inset-bottom,0px),8px)}
 .tb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:none;background:none;cursor:pointer;padding:8px 4px;transition:all .15s}
 .tb:active{opacity:.5;transform:scale(.92)}
 .tb-iw{width:28px;height:28px;display:flex;align-items:center;justify-content:center;transition:transform .2s;border-radius:10px}
